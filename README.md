@@ -40,3 +40,7 @@ git-cli
 ```bash
 sudo rm /usr/local/bin/git-cli  #To delete the file from the entire system.
 ```
+
+## Disclaimer
+
+The project is still under development. This is the initial version of the software mainly released for testing purposes. Updates are on the way soon!!

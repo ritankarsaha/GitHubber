@@ -17,7 +17,7 @@ git-cli-tool/
 └── README.md
 ```
 
-# How to Run
+# How to Run 
 
 
 ## To build the binary file and to move it to your bin folder.

@@ -1,0 +1,185 @@
+run:
+  timeout: 5m
+  issues-exit-code: 1
+  tests: true
+  build-tags: []
+  skip-dirs:
+    - vendor
+    - testdata
+    - examples
+    - tmp
+  skip-files:
+    - ".*_generated.go$"
+  modules-download-mode: readonly
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+  uniq-by-line: true
+  sort-results: true
+
+linters-settings:
+  dupl:
+    threshold: 100
+  
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  
+  exhaustive:
+    check-generated: false
+    default-signifies-exhaustive: false
+  
+  funlen:
+    lines: 100
+    statements: 50
+  
+  gci:
+    local-prefixes: github.com/ritankarsaha/githubber
+  
+  gocognit:
+    min-complexity: 15
+  
+  gocyclo:
+    min-complexity: 10
+  
+  godot:
+    scope: declarations
+    capital: false
+  
+  gofmt:
+    simplify: true
+  
+  goimports:
+    local-prefixes: github.com/ritankarsaha/githubber
+  
+  golint:
+    min-confidence: 0
+  
+  gomnd:
+    settings:
+      mnd:
+        checks:
+          - argument
+          - case
+          - condition
+          - operation
+          - return
+  
+  govet:
+    check-shadowing: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/ritankarsaha/githubber/pkg/logger).Debugf
+          - (github.com/ritankarsaha/githubber/pkg/logger).Infof
+          - (github.com/ritankarsaha/githubber/pkg/logger).Warnf
+          - (github.com/ritankarsaha/githubber/pkg/logger).Errorf
+          - (github.com/ritankarsaha/githubber/pkg/logger).Fatalf
+  
+  lll:
+    line-length: 120
+  
+  maligned:
+    suggest-new: true
+  
+  misspell:
+    locale: US
+  
+  nestif:
+    min-complexity: 4
+  
+  prealloc:
+    simple: true
+    range-loops: true
+    for-loops: false
+  
+  testpackage:
+    skip-regexp: (export|internal)_test\.go
+  
+  unparam:
+    check-exported: false
+  
+  unused:
+    check-exported: false
+  
+  whitespace:
+    multi-if: false
+    multi-func: false
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - exhaustive
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - golint
+    - gomnd
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - interfacer
+    - lll
+    - misspell
+    - nakedret
+    - noctx
+    - nolintlint
+    - rowserrcheck
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gomnd
+        - funlen
+        - dupl
+    
+    - path: cmd/
+      linters:
+        - gochecknoinits
+    
+    - path: internal/commands/
+      linters:
+        - funlen
+    
+    - linters:
+        - lll
+      source: "^//go:generate "
+  
+  exclude:
+    - "Error return value of .((os\\.)?std(out|err)\\..*|.*Close|.*Flush|os\\.Remove(All)?|.*printf?|os\\.(Un)?Setenv). is not checked"
+    - "exported (type|method|function) .* should have comment or be unexported"
+    - "string `.*` has \\d occurrences, make it a constant"
+  
+  exclude-use-default: false
+  fix: false
+  max-issues-per-linter: 50
+  max-same-issues: 3
+  new: false
+
+severity:
+  default-severity: error
+  case-sensitive: false

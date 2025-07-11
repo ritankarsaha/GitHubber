@@ -1,31 +1,42 @@
 package main
 
 import (
-    "fmt"
-    "os"
-    "github.com/ritankarsaha/git-tool/internal/cli"
-    "github.com/ritankarsaha/git-tool/internal/git"
+	"fmt"
+	"os"
+
+	"github.com/ritankarsaha/githubber/internal/commands"
+	"github.com/ritankarsaha/githubber/pkg/config"
+	"github.com/ritankarsaha/githubber/pkg/git"
+	"github.com/ritankarsaha/githubber/pkg/logger"
 )
 
 func main() {
-    // Check if Git is installed
-    if _, err := git.RunCommand("git --version"); err != nil {
-        fmt.Println("Error: Git is not installed or not in PATH")
-        os.Exit(1)
-    }
+	// Initialize configuration
+	cfg, err := config.Init()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to initialize configuration: %v\n", err)
+		os.Exit(1)
+	}
 
-    fmt.Println("🛠 Git CLI Tool")
-    fmt.Println("---------------")
+	// Initialize logger
+	if err := logger.Init(cfg); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to initialize logger: %v\n", err)
+		os.Exit(1)
+	}
 
-    // Check if we're in a git repository
-    if repoInfo, err := git.GetRepositoryInfo(); err == nil {
-        fmt.Printf("📂 Repository: %s\n", repoInfo.URL)
-        fmt.Printf("🌿 Current Branch: %s\n", repoInfo.CurrentBranch)
-    } else {
-        fmt.Println("❌ Error: Not in a Git repository")
-        os.Exit(1)
-    }
+	// Create Git client
+	gitClient := git.NewClient(cfg)
+	defer gitClient.Close()
 
-    // Start the CLI menu
-    cli.StartMenu()
+	// Validate Git installation
+	if err := gitClient.ValidateGitInstallation(); err != nil {
+		logger.Fatalf("Git validation failed: %v", err)
+	}
+
+	// Execute root command
+	rootCmd := commands.NewRootCommand(cfg, gitClient)
+	if err := rootCmd.Execute(); err != nil {
+		logger.Errorf("Command execution failed: %v", err)
+		os.Exit(1)
+	}
 }

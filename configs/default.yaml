@@ -1,0 +1,25 @@
+app:
+  name: "GitHubber"
+  version: "2.0.0"
+  debug: false
+
+git:
+  default_remote: "origin"
+  default_branch: "main"
+  auto_push: false
+  sign_commits: false
+  pretty_format: "%h %s (%an, %ar)"
+
+github:
+  api_base_url: "https://api.github.com"
+
+ui:
+  theme: "default"
+  show_icons: true
+  show_spinner: true
+  confirm_actions: true
+  page_size: 10
+
+logging:
+  level: "info"
+  format: "text"

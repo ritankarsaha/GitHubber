@@ -1,3 +1,9 @@
+/*
+ * GitHubber - Git Commands Module
+ * Author: Ritankar Saha <ritankar.saha786@gmail.com>
+ * Description: Core Git command implementations and wrappers
+ */
+
 package git
 
 import (

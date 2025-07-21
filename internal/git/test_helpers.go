@@ -1,3 +1,9 @@
+/*
+ * GitHubber - Test Helpers
+ * Author: Ritankar Saha <ritankar.saha786@gmail.com>
+ * Description: Testing utilities and helper functions
+ */
+
 package git
 
 import (

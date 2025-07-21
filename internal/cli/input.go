@@ -1,3 +1,9 @@
+/*
+ * GitHubber - CLI Input Handler
+ * Author: Ritankar Saha <ritankar.saha786@gmail.com>
+ * Description: User input handling utilities for CLI interface
+ */
+
 package cli
 
 import (

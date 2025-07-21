@@ -1,3 +1,9 @@
+/*
+ * GitHubber - Git Utilities
+ * Author: Ritankar Saha <ritankar.saha786@gmail.com>
+ * Description: Git utility functions and helpers
+ */
+
 package git
 
 import (

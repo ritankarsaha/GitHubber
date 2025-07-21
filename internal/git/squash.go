@@ -1,3 +1,9 @@
+/*
+ * GitHubber - Git Squash Operations
+ * Author: Ritankar Saha <ritankar.saha786@gmail.com>
+ * Description: Advanced commit squashing functionality
+ */
+
 package git
 
 import (

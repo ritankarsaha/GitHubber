@@ -1,3 +1,9 @@
+/*
+ * GitHubber - CLI Menu System
+ * Author: Ritankar Saha <ritankar.saha786@gmail.com>
+ * Description: Interactive menu-driven interface for Git and GitHub operations
+ */
+
 package cli
 
 import (
@@ -5,51 +11,69 @@ import (
 	"os"
 	"strings"
 
+	"github.com/ritankarsaha/git-tool/internal/config"
 	"github.com/ritankarsaha/git-tool/internal/git"
+	"github.com/ritankarsaha/git-tool/internal/github"
+	"github.com/ritankarsaha/git-tool/internal/ui"
 )
 
 func StartMenu() {
 	for {
-		fmt.Println("\n📋 Git Tool Menu:")
-		fmt.Println("\n🔧 Repository Operations:")
-		fmt.Println("1. Initialize Repository")
-		fmt.Println("2. Clone Repository")
+		// Repository Operations
+		fmt.Println(ui.FormatMenuHeader(ui.IconRepository, "Repository Operations"))
+		fmt.Println(ui.FormatMenuItem(1, "Initialize Repository"))
+		fmt.Println(ui.FormatMenuItem(2, "Clone Repository"))
 
-		fmt.Println("\n🌿 Branch Operations:")
-		fmt.Println("3. Create Branch")
-		fmt.Println("4. Delete Branch")
-		fmt.Println("5. Switch Branch")
-		fmt.Println("6. List Branches")
+		// Branch Operations
+		fmt.Println(ui.FormatMenuHeader(ui.IconBranch, "Branch Operations"))
+		fmt.Println(ui.FormatMenuItem(3, "Create Branch"))
+		fmt.Println(ui.FormatMenuItem(4, "Delete Branch"))
+		fmt.Println(ui.FormatMenuItem(5, "Switch Branch"))
+		fmt.Println(ui.FormatMenuItem(6, "List Branches"))
 
-		fmt.Println("\n💾 Changes and Staging:")
-		fmt.Println("7. View Status")
-		fmt.Println("8. Add Files")
-		fmt.Println("9. Commit Changes")
+		// Changes and Staging
+		fmt.Println(ui.FormatMenuHeader(ui.IconCommit, "Changes and Staging"))
+		fmt.Println(ui.FormatMenuItem(7, "View Status"))
+		fmt.Println(ui.FormatMenuItem(8, "Add Files"))
+		fmt.Println(ui.FormatMenuItem(9, "Commit Changes"))
 
-		fmt.Println("\n🔄 Remote Operations:")
-		fmt.Println("10. Push Changes")
-		fmt.Println("11. Pull Changes")
-		fmt.Println("12. Fetch Updates")
+		// Remote Operations
+		fmt.Println(ui.FormatMenuHeader(ui.IconRemote, "Remote Operations"))
+		fmt.Println(ui.FormatMenuItem(10, "Push Changes"))
+		fmt.Println(ui.FormatMenuItem(11, "Pull Changes"))
+		fmt.Println(ui.FormatMenuItem(12, "Fetch Updates"))
 
-		fmt.Println("\n📜 History and Diff:")
-		fmt.Println("13. View Log")
-		fmt.Println("14. View Diff")
-		fmt.Println("15. Squash Commits")
+		// History and Diff
+		fmt.Println(ui.FormatMenuHeader(ui.IconHistory, "History and Diff"))
+		fmt.Println(ui.FormatMenuItem(13, "View Log"))
+		fmt.Println(ui.FormatMenuItem(14, "View Diff"))
+		fmt.Println(ui.FormatMenuItem(15, "Squash Commits"))
 
-		fmt.Println("\n📦 Stash Operations:")
-		fmt.Println("16. Stash Save")
-		fmt.Println("17. Stash Pop")
-		fmt.Println("18. List Stashes")
+		// Stash Operations
+		fmt.Println(ui.FormatMenuHeader(ui.IconStash, "Stash Operations"))
+		fmt.Println(ui.FormatMenuItem(16, "Stash Save"))
+		fmt.Println(ui.FormatMenuItem(17, "Stash Pop"))
+		fmt.Println(ui.FormatMenuItem(18, "List Stashes"))
 
-		fmt.Println("\n🏷️  Tag Operations:")
-		fmt.Println("19. Create Tag")
-		fmt.Println("20. Delete Tag")
-		fmt.Println("21. List Tags")
+		// Tag Operations
+		fmt.Println(ui.FormatMenuHeader(ui.IconTag, "Tag Operations"))
+		fmt.Println(ui.FormatMenuItem(19, "Create Tag"))
+		fmt.Println(ui.FormatMenuItem(20, "Delete Tag"))
+		fmt.Println(ui.FormatMenuItem(21, "List Tags"))
 
-		fmt.Println("\n❌ Exit:")
-		fmt.Println("22. Exit")
+		// GitHub Operations (New section)
+		fmt.Println(ui.FormatMenuHeader(ui.IconGitHub, "GitHub Operations"))
+		fmt.Println(ui.FormatMenuItem(22, "View Repository Info"))
+		fmt.Println(ui.FormatMenuItem(23, "Create Pull Request"))
+		fmt.Println(ui.FormatMenuItem(24, "List Issues"))
 
-		choice := GetInput("\nEnter your choice (1-22): ")
+		// Configuration and Exit
+		fmt.Println(ui.FormatMenuHeader(ui.IconConfig, "Configuration"))
+		fmt.Println(ui.FormatMenuItem(25, "Settings"))
+		fmt.Println(ui.FormatMenuHeader(ui.IconExit, "Exit"))
+		fmt.Println(ui.FormatMenuItem(26, "Exit"))
+
+		choice := GetInput(ui.FormatPrompt("Enter your choice (1-26): "))
 
 		switch choice {
 		case "1":
@@ -95,67 +119,75 @@ func StartMenu() {
 		case "21":
 			handleListTags()
 		case "22":
-			fmt.Println("👋 Goodbye!")
+			handleRepoInfo()
+		case "23":
+			handleCreatePR()
+		case "24":
+			handleListIssues()
+		case "25":
+			handleSettings()
+		case "26":
+			fmt.Println(ui.FormatSuccess("Goodbye! Thank you for using GitHubber!"))
 			os.Exit(0)
 		default:
-			fmt.Println("❌ Invalid choice. Please try again.")
+			fmt.Println(ui.FormatError("Invalid choice. Please try again."))
 		}
 	}
 }
 
 func handleInit() {
 	if err := git.Init(); err != nil {
-		fmt.Printf("❌ Error initializing repository: %v\n", err)
+		fmt.Println(ui.FormatError(fmt.Sprintf("Error initializing repository: %v", err)))
 		return
 	}
-	fmt.Println("✅ Repository initialized successfully!")
+	fmt.Println(ui.FormatSuccess("Repository initialized successfully!"))
 }
 
 func handleClone() {
-	url := GetInput("Enter repository URL: ")
+	url := GetInput(ui.FormatPrompt("Enter repository URL: "))
 	if err := git.Clone(url); err != nil {
-		fmt.Printf("❌ Error cloning repository: %v\n", err)
+		fmt.Println(ui.FormatError(fmt.Sprintf("Error cloning repository: %v", err)))
 		return
 	}
-	fmt.Println("✅ Repository cloned successfully!")
+	fmt.Println(ui.FormatSuccess("Repository cloned successfully!"))
 }
 
 func handleCreateBranch() {
-	name := GetInput("Enter branch name: ")
+	name := GetInput(ui.FormatPrompt("Enter branch name: "))
 	if err := git.CreateBranch(name); err != nil {
-		fmt.Printf("❌ Error creating branch: %v\n", err)
+		fmt.Println(ui.FormatError(fmt.Sprintf("Error creating branch: %v", err)))
 		return
 	}
-	fmt.Println("✅ Branch created successfully!")
+	fmt.Println(ui.FormatSuccess("Branch created successfully!"))
 }
 
 func handleDeleteBranch() {
-	name := GetInput("Enter branch name to delete: ")
+	name := GetInput(ui.FormatPrompt("Enter branch name to delete: "))
 	if err := git.DeleteBranch(name); err != nil {
-		fmt.Printf("❌ Error deleting branch: %v\n", err)
+		fmt.Println(ui.FormatError(fmt.Sprintf("Error deleting branch: %v", err)))
 		return
 	}
-	fmt.Println("✅ Branch deleted successfully!")
+	fmt.Println(ui.FormatSuccess("Branch deleted successfully!"))
 }
 
 func handleSwitchBranch() {
-	name := GetInput("Enter branch name to switch to: ")
+	name := GetInput(ui.FormatPrompt("Enter branch name to switch to: "))
 	if err := git.SwitchBranch(name); err != nil {
-		fmt.Printf("❌ Error switching branch: %v\n", err)
+		fmt.Println(ui.FormatError(fmt.Sprintf("Error switching branch: %v", err)))
 		return
 	}
-	fmt.Println("✅ Switched to branch successfully!")
+	fmt.Println(ui.FormatSuccess("Switched to branch successfully!"))
 }
 
 func handleListBranches() {
 	branches, err := git.ListBranches()
 	if err != nil {
-		fmt.Printf("❌ Error listing branches: %v\n", err)
+		fmt.Println(ui.FormatError(fmt.Sprintf("Error listing branches: %v", err)))
 		return
 	}
-	fmt.Println("\n🌿 Branches:")
+	fmt.Println(ui.FormatInfo("Branches:"))
 	for _, branch := range branches {
-		fmt.Println(branch)
+		fmt.Println(ui.FormatCode(branch))
 	}
 }
 
@@ -354,4 +386,217 @@ func getCurrentBranch() string {
 		return "current-branch"
 	}
 	return branch
+}
+
+// GitHub Operations (New handlers)
+func handleRepoInfo() {
+	client, err := github.NewClient()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create GitHub client: %v", err)))
+		fmt.Println(ui.FormatInfo("Please set GITHUB_TOKEN environment variable or configure authentication"))
+		return
+	}
+
+	// Get current repository info from git
+	repoInfo, err := git.GetRepositoryInfo()
+	if err != nil {
+		fmt.Println(ui.FormatError("Not in a Git repository or no remote origin found"))
+		return
+	}
+
+	owner, repo, err := github.ParseRepoURL(repoInfo.URL)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to parse repository URL: %v", err)))
+		return
+	}
+
+	repository, err := client.GetRepository(owner, repo)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to get repository information: %v", err)))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo("GitHub Repository Information"))
+	fmt.Println(ui.FormatBox(fmt.Sprintf(
+		"Name: %s\nOwner: %s\nDescription: %s\nURL: %s\nPrivate: %t\nLanguage: %s\nStars: %d\nForks: %d",
+		repository.Name, repository.Owner, repository.Description,
+		repository.URL, repository.Private, repository.Language,
+		repository.Stars, repository.Forks,
+	)))
+}
+
+func handleCreatePR() {
+	client, err := github.NewClient()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create GitHub client: %v", err)))
+		return
+	}
+
+	// Get current repository info
+	repoInfo, err := git.GetRepositoryInfo()
+	if err != nil {
+		fmt.Println(ui.FormatError("Not in a Git repository"))
+		return
+	}
+
+	owner, repo, err := github.ParseRepoURL(repoInfo.URL)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to parse repository URL: %v", err)))
+		return
+	}
+
+	// Get current branch
+	currentBranch := getCurrentBranch()
+	
+	fmt.Println(ui.FormatInfo("Create Pull Request"))
+	title := GetInput(ui.FormatPrompt("Enter PR title: "))
+	body := GetInput(ui.FormatPrompt("Enter PR description: "))
+	base := GetInput(ui.FormatPrompt(fmt.Sprintf("Enter base branch (default: main): ")))
+	if base == "" {
+		base = "main"
+	}
+
+	pr, err := client.CreatePullRequest(owner, repo, title, body, currentBranch, base)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create pull request: %v", err)))
+		return
+	}
+
+	fmt.Println(ui.FormatSuccess(fmt.Sprintf("Pull request created successfully!")))
+	fmt.Println(ui.FormatInfo(fmt.Sprintf("PR #%d: %s", pr.Number, pr.Title)))
+	fmt.Println(ui.FormatInfo(fmt.Sprintf("URL: %s", pr.URL)))
+}
+
+func handleListIssues() {
+	client, err := github.NewClient()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create GitHub client: %v", err)))
+		return
+	}
+
+	// Get current repository info
+	repoInfo, err := git.GetRepositoryInfo()
+	if err != nil {
+		fmt.Println(ui.FormatError("Not in a Git repository"))
+		return
+	}
+
+	owner, repo, err := github.ParseRepoURL(repoInfo.URL)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to parse repository URL: %v", err)))
+		return
+	}
+
+	state := GetInput(ui.FormatPrompt("Enter issue state (open/closed/all, default: open): "))
+	if state == "" {
+		state = "open"
+	}
+
+	issues, err := client.ListIssues(owner, repo, state)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to list issues: %v", err)))
+		return
+	}
+
+	if len(issues) == 0 {
+		fmt.Println(ui.FormatInfo("No issues found"))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo(fmt.Sprintf("GitHub Issues (%s)", state)))
+	for _, issue := range issues {
+		fmt.Printf("%s #%d: %s (%s) by %s\n",
+			ui.IconInfo, issue.Number, issue.Title, issue.State, issue.Author)
+	}
+}
+
+func handleSettings() {
+	cfg, err := config.Load()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to load configuration: %v", err)))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo("GitHubber Settings"))
+	fmt.Println("1. View current settings")
+	fmt.Println("2. Set GitHub token")
+	fmt.Println("3. Set default repository")
+	fmt.Println("4. UI preferences")
+	fmt.Println("5. Back to main menu")
+
+	choice := GetInput(ui.FormatPrompt("Enter your choice (1-5): "))
+
+	switch choice {
+	case "1":
+		showCurrentSettings(cfg)
+	case "2":
+		setGitHubToken(cfg)
+	case "3":
+		setDefaultRepo(cfg)
+	case "4":
+		setUIPreferences(cfg)
+	case "5":
+		return
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func showCurrentSettings(cfg *config.Config) {
+	fmt.Println(ui.FormatInfo("Current Settings"))
+	hasToken := "No"
+	if cfg.GetGitHubToken() != "" {
+		hasToken = "Yes"
+	}
+	
+	settings := fmt.Sprintf(
+		"GitHub Token: %s\nDefault Owner: %s\nDefault Repo: %s\nTheme: %s\nShow Emojis: %t\nPage Size: %d",
+		hasToken, cfg.GitHub.DefaultOwner, cfg.GitHub.DefaultRepo,
+		cfg.UI.Theme, cfg.UI.ShowEmojis, cfg.UI.PageSize,
+	)
+	fmt.Println(ui.FormatBox(settings))
+}
+
+func setGitHubToken(cfg *config.Config) {
+	token := GetInput(ui.FormatPrompt("Enter GitHub personal access token: "))
+	if token == "" {
+		fmt.Println(ui.FormatWarning("Token not set"))
+		return
+	}
+	
+	if err := cfg.SetGitHubToken(token); err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to save token: %v", err)))
+		return
+	}
+	
+	fmt.Println(ui.FormatSuccess("GitHub token saved successfully"))
+}
+
+func setDefaultRepo(cfg *config.Config) {
+	owner := GetInput(ui.FormatPrompt("Enter default repository owner: "))
+	repo := GetInput(ui.FormatPrompt("Enter default repository name: "))
+	
+	cfg.GitHub.DefaultOwner = owner
+	cfg.GitHub.DefaultRepo = repo
+	
+	if err := cfg.Save(); err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to save configuration: %v", err)))
+		return
+	}
+	
+	fmt.Println(ui.FormatSuccess("Default repository saved successfully"))
+}
+
+func setUIPreferences(cfg *config.Config) {
+	theme := GetInput(ui.FormatPrompt("Enter theme (dark/light/auto): "))
+	if theme != "" {
+		cfg.UI.Theme = theme
+	}
+	
+	if err := cfg.Save(); err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to save configuration: %v", err)))
+		return
+	}
+	
+	fmt.Println(ui.FormatSuccess("UI preferences saved successfully"))
 }

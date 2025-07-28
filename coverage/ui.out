@@ -1,0 +1,13 @@
+mode: set
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:145.38,147.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:149.41,151.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:153.49,155.2 1 0
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:157.53,160.2 2 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:162.40,164.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:166.38,168.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:170.40,172.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:174.37,176.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:178.39,180.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:182.48,189.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:191.39,193.2 1 1
+github.com/ritankarsaha/git-tool/internal/ui/styles.go:195.40,197.2 1 1

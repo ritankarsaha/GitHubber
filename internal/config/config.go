@@ -50,7 +50,7 @@ func GetConfigPath() (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("failed to get home directory: %w", err)
 	}
-	
+
 	configDir := filepath.Join(homeDir, configDirName)
 	return filepath.Join(configDir, configFileName), nil
 }
@@ -161,7 +161,7 @@ func (c *Config) GetGitHubToken() string {
 	if token := os.Getenv("GITHUB_TOKEN"); token != "" {
 		return token
 	}
-	
+
 	// Then check config file
 	return c.GitHub.Token
 }
@@ -176,7 +176,7 @@ func (c *Config) Validate() error {
 	if c.UI.PageSize <= 0 {
 		return fmt.Errorf("page_size must be greater than 0")
 	}
-	
+
 	validThemes := []string{"dark", "light", "auto"}
 	validTheme := false
 	for _, theme := range validThemes {
@@ -188,6 +188,6 @@ func (c *Config) Validate() error {
 	if !validTheme {
 		return fmt.Errorf("invalid theme: %s (valid themes: %v)", c.UI.Theme, validThemes)
 	}
-	
+
 	return nil
 }

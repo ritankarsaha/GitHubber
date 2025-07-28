@@ -50,11 +50,30 @@ GitHubber is a comprehensive CLI tool that supercharges your Git and GitHub work
 
 ### Installation
 
-#### Option 1: Build from Source
+#### Option 1: Using Makefile (Recommended)
 ```bash
 # Clone the repository
 git clone https://github.com/ritankarsaha/GitHubber.git
 cd GitHubber
+
+# Build the application
+make build
+
+# Install globally (requires sudo)
+make install
+
+# Verify installation
+githubber --help
+```
+
+#### Option 2: Manual Build
+```bash
+# Clone the repository
+git clone https://github.com/ritankarsaha/GitHubber.git
+cd GitHubber
+
+# Download dependencies
+go mod download
 
 # Build the application
 go build -o githubber ./cmd/main.go
@@ -63,9 +82,15 @@ go build -o githubber ./cmd/main.go
 sudo mv githubber /usr/local/bin/
 ```
 
-#### Option 2: Direct Go Install
+#### Option 3: Direct Go Install
 ```bash
-go install github.com/ritankarsaha/GitHubber/cmd/main.go@latest
+go install github.com/ritankarsaha/git-tool/cmd/main.go@latest
+```
+
+#### Option 4: Using Install Script
+```bash
+# Download and run install script
+curl -fsSL https://raw.githubusercontent.com/ritankarsaha/GitHubber/main/scripts/install.sh | bash
 ```
 
 ### Setup GitHub Authentication
@@ -246,20 +271,26 @@ go test ./internal/git/
 
 ## 🤝 Contributing
 
-We welcome contributions! Please follow these steps:
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on how to contribute to this project.
 
+### Quick Start for Contributors
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
 3. Make your changes and add tests
-4. Commit your changes: `git commit -m 'Add amazing feature'`
-5. Push to the branch: `git push origin feature/amazing-feature`
-6. Open a Pull Request
+4. Run tests: `make test`
+5. Commit your changes: `git commit -m 'Add amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
 
-### Development Guidelines
-- Follow Go best practices and conventions
-- Add tests for new functionality
-- Update documentation for new features
-- Use meaningful commit messages
+### Development Commands
+```bash
+make build         # Build the application
+make test          # Run all tests
+make test-coverage # Run tests with coverage
+make lint          # Lint the code
+make fmt           # Format the code
+make dev           # Run in development mode
+```
 
 ## 📝 License
 

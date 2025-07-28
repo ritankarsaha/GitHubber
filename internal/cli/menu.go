@@ -61,19 +61,83 @@ func StartMenu() {
 		fmt.Println(ui.FormatMenuItem(20, "Delete Tag"))
 		fmt.Println(ui.FormatMenuItem(21, "List Tags"))
 
-		// GitHub Operations (New section)
+		// Advanced Git Operations
+		fmt.Println(ui.FormatMenuHeader("🔧", "Advanced Git Operations"))
+		fmt.Println(ui.FormatMenuItem(22, "Interactive Rebase"))
+		fmt.Println(ui.FormatMenuItem(23, "Cherry Pick"))
+		fmt.Println(ui.FormatMenuItem(24, "Reset (Soft/Mixed/Hard)"))
+		fmt.Println(ui.FormatMenuItem(25, "Revert Commit"))
+		fmt.Println(ui.FormatMenuItem(26, "Merge Branch"))
+		fmt.Println(ui.FormatMenuItem(27, "Bisect"))
+		fmt.Println(ui.FormatMenuItem(28, "Resolve Conflicts"))
+
+		// GitHub Operations
 		fmt.Println(ui.FormatMenuHeader(ui.IconGitHub, "GitHub Operations"))
-		fmt.Println(ui.FormatMenuItem(22, "View Repository Info"))
-		fmt.Println(ui.FormatMenuItem(23, "Create Pull Request"))
-		fmt.Println(ui.FormatMenuItem(24, "List Issues"))
+		fmt.Println(ui.FormatMenuItem(29, "View Repository Info"))
+		fmt.Println(ui.FormatMenuItem(30, "Create Pull Request"))
+		fmt.Println(ui.FormatMenuItem(31, "List Pull Requests"))
+		fmt.Println(ui.FormatMenuItem(32, "List Issues"))
+		fmt.Println(ui.FormatMenuItem(33, "Create Issue"))
+		fmt.Println(ui.FormatMenuItem(34, "Repository Management"))
+
+		// Remote Management
+		fmt.Println(ui.FormatMenuHeader("🔗", "Remote Management"))
+		fmt.Println(ui.FormatMenuItem(35, "Add Remote"))
+		fmt.Println(ui.FormatMenuItem(36, "Remove Remote"))
+		fmt.Println(ui.FormatMenuItem(37, "Rename Remote"))
+		fmt.Println(ui.FormatMenuItem(38, "List All Remotes"))
+		fmt.Println(ui.FormatMenuItem(39, "Set Remote URL"))
+		fmt.Println(ui.FormatMenuItem(40, "Sync with All Remotes"))
+
+		// Advanced History & Analysis
+		fmt.Println(ui.FormatMenuHeader("📊", "Advanced History & Analysis"))
+		fmt.Println(ui.FormatMenuItem(41, "Interactive Log Viewer"))
+		fmt.Println(ui.FormatMenuItem(42, "File History"))
+		fmt.Println(ui.FormatMenuItem(43, "Blame/Annotate File"))
+		fmt.Println(ui.FormatMenuItem(44, "Show Commit Details"))
+		fmt.Println(ui.FormatMenuItem(45, "Compare Branches"))
+		fmt.Println(ui.FormatMenuItem(46, "Find Commits by Author"))
+		fmt.Println(ui.FormatMenuItem(47, "Find Commits by Message"))
+
+		// Patch & Bundle Operations
+		fmt.Println(ui.FormatMenuHeader("🧩", "Patch & Bundle Operations"))
+		fmt.Println(ui.FormatMenuItem(48, "Create Patch File"))
+		fmt.Println(ui.FormatMenuItem(49, "Apply Patch"))
+		fmt.Println(ui.FormatMenuItem(50, "Create Bundle"))
+		fmt.Println(ui.FormatMenuItem(51, "Verify/List Bundle"))
+		fmt.Println(ui.FormatMenuItem(52, "Format Patch for Email"))
+
+		// Worktree Management
+		fmt.Println(ui.FormatMenuHeader("🌳", "Worktree Management"))
+		fmt.Println(ui.FormatMenuItem(53, "List Worktrees"))
+		fmt.Println(ui.FormatMenuItem(54, "Add Worktree"))
+		fmt.Println(ui.FormatMenuItem(55, "Remove Worktree"))
+		fmt.Println(ui.FormatMenuItem(56, "Move Worktree"))
+
+		// Repository Maintenance
+		fmt.Println(ui.FormatMenuHeader("📋", "Repository Maintenance"))
+		fmt.Println(ui.FormatMenuItem(57, "Garbage Collection"))
+		fmt.Println(ui.FormatMenuItem(58, "Verify Repository Integrity"))
+		fmt.Println(ui.FormatMenuItem(59, "Optimize Repository"))
+		fmt.Println(ui.FormatMenuItem(60, "Repository Statistics"))
+		fmt.Println(ui.FormatMenuItem(61, "Reflog Management"))
+		fmt.Println(ui.FormatMenuItem(62, "Prune Remote Branches"))
+
+		// Smart Git Operations
+		fmt.Println(ui.FormatMenuHeader("🎯", "Smart Git Operations"))
+		fmt.Println(ui.FormatMenuItem(63, "Interactive Add (Patch Mode)"))
+		fmt.Println(ui.FormatMenuItem(64, "Partial File Commits"))
+		fmt.Println(ui.FormatMenuItem(65, "Commit Amend Helper"))
+		fmt.Println(ui.FormatMenuItem(66, "Branch Comparison Tool"))
+		fmt.Println(ui.FormatMenuItem(67, "Conflict Prevention Check"))
 
 		// Configuration and Exit
 		fmt.Println(ui.FormatMenuHeader(ui.IconConfig, "Configuration"))
-		fmt.Println(ui.FormatMenuItem(25, "Settings"))
+		fmt.Println(ui.FormatMenuItem(68, "Settings"))
 		fmt.Println(ui.FormatMenuHeader(ui.IconExit, "Exit"))
-		fmt.Println(ui.FormatMenuItem(26, "Exit"))
+		fmt.Println(ui.FormatMenuItem(69, "Exit"))
 
-		choice := GetInput(ui.FormatPrompt("Enter your choice (1-26): "))
+		choice := GetInput(ui.FormatPrompt("Enter your choice (1-69): "))
 
 		switch choice {
 		case "1":
@@ -119,14 +183,100 @@ func StartMenu() {
 		case "21":
 			handleListTags()
 		case "22":
-			handleRepoInfo()
+			handleInteractiveRebase()
 		case "23":
-			handleCreatePR()
+			handleCherryPickMenu()
 		case "24":
-			handleListIssues()
+			handleResetMenu()
 		case "25":
-			handleSettings()
+			handleRevertMenu()
 		case "26":
+			handleMergeMenu()
+		case "27":
+			handleBisectMenu()
+		case "28":
+			handleResolveConflictsMenu()
+		case "29":
+			handleRepoInfo()
+		case "30":
+			handleCreatePR()
+		case "31":
+			handleListPRs()
+		case "32":
+			handleListIssues()
+		case "33":
+			handleCreateIssueMenu()
+		case "34":
+			handleRepoManagement()
+		case "35":
+			handleAddRemote()
+		case "36":
+			handleRemoveRemote()
+		case "37":
+			handleRenameRemote()
+		case "38":
+			handleListRemotes()
+		case "39":
+			handleSetRemoteURL()
+		case "40":
+			handleSyncAllRemotes()
+		case "41":
+			handleInteractiveLogViewer()
+		case "42":
+			handleFileHistory()
+		case "43":
+			handleBlameFile()
+		case "44":
+			handleShowCommitDetails()
+		case "45":
+			handleCompareBranches()
+		case "46":
+			handleFindCommitsByAuthor()
+		case "47":
+			handleFindCommitsByMessage()
+		case "48":
+			handleCreatePatch()
+		case "49":
+			handleApplyPatch()
+		case "50":
+			handleCreateBundle()
+		case "51":
+			handleVerifyBundle()
+		case "52":
+			handleFormatPatchEmail()
+		case "53":
+			handleListWorktrees()
+		case "54":
+			handleAddWorktree()
+		case "55":
+			handleRemoveWorktree()
+		case "56":
+			handleMoveWorktree()
+		case "57":
+			handleGarbageCollection()
+		case "58":
+			handleVerifyRepository()
+		case "59":
+			handleOptimizeRepository()
+		case "60":
+			handleRepositoryStatistics()
+		case "61":
+			handleReflogManagement()
+		case "62":
+			handlePruneRemoteBranches()
+		case "63":
+			handleInteractiveAdd()
+		case "64":
+			handlePartialCommit()
+		case "65":
+			handleCommitAmend()
+		case "66":
+			handleBranchComparisonTool()
+		case "67":
+			handleConflictPreventionCheck()
+		case "68":
+			handleSettings()
+		case "69":
 			fmt.Println(ui.FormatSuccess("Goodbye! Thank you for using GitHubber!"))
 			os.Exit(0)
 		default:
@@ -447,7 +597,7 @@ func handleCreatePR() {
 
 	// Get current branch
 	currentBranch := getCurrentBranch()
-	
+
 	fmt.Println(ui.FormatInfo("Create Pull Request"))
 	title := GetInput(ui.FormatPrompt("Enter PR title: "))
 	body := GetInput(ui.FormatPrompt("Enter PR description: "))
@@ -548,7 +698,7 @@ func showCurrentSettings(cfg *config.Config) {
 	if cfg.GetGitHubToken() != "" {
 		hasToken = "Yes"
 	}
-	
+
 	settings := fmt.Sprintf(
 		"GitHub Token: %s\nDefault Owner: %s\nDefault Repo: %s\nTheme: %s\nShow Emojis: %t\nPage Size: %d",
 		hasToken, cfg.GitHub.DefaultOwner, cfg.GitHub.DefaultRepo,
@@ -563,27 +713,27 @@ func setGitHubToken(cfg *config.Config) {
 		fmt.Println(ui.FormatWarning("Token not set"))
 		return
 	}
-	
+
 	if err := cfg.SetGitHubToken(token); err != nil {
 		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to save token: %v", err)))
 		return
 	}
-	
+
 	fmt.Println(ui.FormatSuccess("GitHub token saved successfully"))
 }
 
 func setDefaultRepo(cfg *config.Config) {
 	owner := GetInput(ui.FormatPrompt("Enter default repository owner: "))
 	repo := GetInput(ui.FormatPrompt("Enter default repository name: "))
-	
+
 	cfg.GitHub.DefaultOwner = owner
 	cfg.GitHub.DefaultRepo = repo
-	
+
 	if err := cfg.Save(); err != nil {
 		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to save configuration: %v", err)))
 		return
 	}
-	
+
 	fmt.Println(ui.FormatSuccess("Default repository saved successfully"))
 }
 
@@ -592,11 +742,1016 @@ func setUIPreferences(cfg *config.Config) {
 	if theme != "" {
 		cfg.UI.Theme = theme
 	}
-	
+
 	if err := cfg.Save(); err != nil {
 		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to save configuration: %v", err)))
 		return
 	}
-	
+
 	fmt.Println(ui.FormatSuccess("UI preferences saved successfully"))
+}
+
+// Advanced Git Operations Handlers
+
+func handleInteractiveRebase() {
+	base := GetInput(ui.FormatPrompt("Enter base commit for rebase: "))
+	if base == "" {
+		fmt.Println(ui.FormatError("Base commit is required"))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo("Starting interactive rebase..."))
+	if err := git.InteractiveRebase(base); err != nil {
+		fmt.Printf("❌ Error: %v\n", err)
+		return
+	}
+	fmt.Println(ui.FormatSuccess("Interactive rebase started!"))
+}
+
+func handleCherryPickMenu() {
+	fmt.Println(ui.FormatInfo("Cherry Pick Operations"))
+	fmt.Println("1. Cherry pick commit")
+	fmt.Println("2. Cherry pick range")
+	fmt.Println("3. Continue cherry pick")
+	fmt.Println("4. Abort cherry pick")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-4): "))
+
+	switch choice {
+	case "1":
+		commit := GetInput(ui.FormatPrompt("Enter commit hash: "))
+		if err := git.CherryPick(commit); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Cherry pick completed!"))
+	case "2":
+		start := GetInput(ui.FormatPrompt("Enter start commit: "))
+		end := GetInput(ui.FormatPrompt("Enter end commit: "))
+		if err := git.CherryPickRange(start, end); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Cherry pick range completed!"))
+	case "3":
+		if err := git.CherryPickContinue(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Cherry pick continued!"))
+	case "4":
+		if err := git.CherryPickAbort(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Cherry pick aborted!"))
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handleResetMenu() {
+	fmt.Println(ui.FormatInfo("Reset Operations"))
+	fmt.Println("1. Soft reset (keep changes staged)")
+	fmt.Println("2. Mixed reset (unstage changes)")
+	fmt.Println("3. Hard reset (discard all changes)")
+	fmt.Println("4. Reset specific file")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-4): "))
+
+	switch choice {
+	case "1":
+		commit := GetInput(ui.FormatPrompt("Enter commit to reset to: "))
+		if err := git.ResetSoft(commit); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Soft reset completed!"))
+	case "2":
+		commit := GetInput(ui.FormatPrompt("Enter commit to reset to: "))
+		if err := git.ResetMixed(commit); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Mixed reset completed!"))
+	case "3":
+		commit := GetInput(ui.FormatPrompt("Enter commit to reset to: "))
+		confirm := GetInput(ui.FormatPrompt("⚠️  This will discard all changes. Continue? (yes/no): "))
+		if strings.ToLower(confirm) != "yes" {
+			fmt.Println(ui.FormatInfo("Reset cancelled"))
+			return
+		}
+		if err := git.ResetHard(commit); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Hard reset completed!"))
+	case "4":
+		file := GetInput(ui.FormatPrompt("Enter file to reset: "))
+		if err := git.ResetFile(file); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("File reset completed!"))
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handleRevertMenu() {
+	fmt.Println(ui.FormatInfo("Revert Operations"))
+	fmt.Println("1. Revert commit (create new commit)")
+	fmt.Println("2. Revert without committing")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-2): "))
+	commit := GetInput(ui.FormatPrompt("Enter commit hash to revert: "))
+
+	switch choice {
+	case "1":
+		if err := git.Revert(commit); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Commit reverted!"))
+	case "2":
+		if err := git.RevertNoCommit(commit); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Changes reverted (not committed)!"))
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handleMergeMenu() {
+	fmt.Println(ui.FormatInfo("Merge Operations"))
+	fmt.Println("1. Regular merge")
+	fmt.Println("2. No fast-forward merge")
+	fmt.Println("3. Squash merge")
+	fmt.Println("4. Abort merge")
+	fmt.Println("5. Continue merge")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-5): "))
+
+	switch choice {
+	case "1":
+		branch := GetInput(ui.FormatPrompt("Enter branch to merge: "))
+		if err := git.Merge(branch); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Merge completed!"))
+	case "2":
+		branch := GetInput(ui.FormatPrompt("Enter branch to merge: "))
+		if err := git.MergeNoFF(branch); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("No-FF merge completed!"))
+	case "3":
+		branch := GetInput(ui.FormatPrompt("Enter branch to merge: "))
+		if err := git.MergeSquash(branch); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Squash merge completed!"))
+	case "4":
+		if err := git.MergeAbort(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Merge aborted!"))
+	case "5":
+		if err := git.MergeContinue(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Merge continued!"))
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handleBisectMenu() {
+	fmt.Println(ui.FormatInfo("Git Bisect Operations"))
+	fmt.Println("1. Start bisect")
+	fmt.Println("2. Mark current commit as bad")
+	fmt.Println("3. Mark current commit as good")
+	fmt.Println("4. Skip current commit")
+	fmt.Println("5. Reset bisect")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-5): "))
+
+	switch choice {
+	case "1":
+		if err := git.BisectStart(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Bisect started! Mark commits as good or bad."))
+	case "2":
+		if err := git.BisectBad(""); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatInfo("Current commit marked as bad"))
+	case "3":
+		if err := git.BisectGood(""); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatInfo("Current commit marked as good"))
+	case "4":
+		if err := git.BisectSkip(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatInfo("Current commit skipped"))
+	case "5":
+		if err := git.BisectReset(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println(ui.FormatSuccess("Bisect reset!"))
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handleResolveConflictsMenu() {
+	fmt.Println(ui.FormatInfo("Starting conflict resolution..."))
+	if err := StartConflictResolution(); err != nil {
+		fmt.Printf("❌ Error: %v\n", err)
+		return
+	}
+}
+
+// Enhanced GitHub Operations Handlers
+
+func handleListPRs() {
+	client, err := github.NewClient()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create GitHub client: %v", err)))
+		return
+	}
+
+	// Get current repository info
+	repoInfo, err := git.GetRepositoryInfo()
+	if err != nil {
+		fmt.Println(ui.FormatError("Not in a Git repository"))
+		return
+	}
+
+	owner, repo, err := github.ParseRepoURL(repoInfo.URL)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to parse repository URL: %v", err)))
+		return
+	}
+
+	state := GetInput(ui.FormatPrompt("Enter PR state (open/closed/all, default: open): "))
+	if state == "" {
+		state = "open"
+	}
+
+	prs, err := client.ListPullRequests(owner, repo, state)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to list pull requests: %v", err)))
+		return
+	}
+
+	if len(prs) == 0 {
+		fmt.Println(ui.FormatInfo("No pull requests found"))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo(fmt.Sprintf("Pull Requests (%s)", state)))
+	for _, pr := range prs {
+		fmt.Printf("%s #%d: %s (%s) by %s\n",
+			ui.IconInfo, pr.Number, pr.Title, pr.State, pr.Author)
+		fmt.Printf("   URL: %s\n", pr.URL)
+	}
+}
+
+func handleCreateIssueMenu() {
+	client, err := github.NewClient()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create GitHub client: %v", err)))
+		return
+	}
+
+	// Get current repository info
+	repoInfo, err := git.GetRepositoryInfo()
+	if err != nil {
+		fmt.Println(ui.FormatError("Not in a Git repository"))
+		return
+	}
+
+	owner, repo, err := github.ParseRepoURL(repoInfo.URL)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to parse repository URL: %v", err)))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo("Create New Issue"))
+	title := GetInput(ui.FormatPrompt("Enter issue title: "))
+	if title == "" {
+		fmt.Println(ui.FormatError("Title is required"))
+		return
+	}
+
+	body := GetInput(ui.FormatPrompt("Enter issue description: "))
+	labels := []string{}
+	labelsInput := GetInput(ui.FormatPrompt("Enter labels (comma-separated, optional): "))
+	if labelsInput != "" {
+		labels = strings.Split(labelsInput, ",")
+		for i := range labels {
+			labels[i] = strings.TrimSpace(labels[i])
+		}
+	}
+
+	issue, err := client.CreateIssue(owner, repo, title, body, labels)
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create issue: %v", err)))
+		return
+	}
+
+	fmt.Println(ui.FormatSuccess("Issue created successfully!"))
+	fmt.Printf("Issue #%d: %s\n", issue.Number, issue.Title)
+	fmt.Printf("URL: %s\n", issue.URL)
+}
+
+func handleRepoManagement() {
+	fmt.Println(ui.FormatInfo("Repository Management"))
+	fmt.Println("1. List repositories")
+	fmt.Println("2. Create repository")
+	fmt.Println("3. Fork repository")
+	fmt.Println("4. Repository search")
+
+	client, err := github.NewClient()
+	if err != nil {
+		fmt.Println(ui.FormatError(fmt.Sprintf("Failed to create GitHub client: %v", err)))
+		return
+	}
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-4): "))
+
+	switch choice {
+	case "1":
+		visibility := GetInput(ui.FormatPrompt("Enter visibility (all/public/private, default: all): "))
+		if visibility == "" {
+			visibility = "all"
+		}
+
+		repos, err := client.ListRepositories(visibility)
+		if err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+
+		fmt.Printf("Found %d repositories:\n", len(repos))
+		for _, repo := range repos {
+			fmt.Printf("  %s/%s (%s) - %d stars, %d forks\n",
+				repo.Owner, repo.Name, repo.Language, repo.Stars, repo.Forks)
+		}
+
+	case "2":
+		name := GetInput(ui.FormatPrompt("Enter repository name: "))
+		if name == "" {
+			fmt.Println(ui.FormatError("Repository name is required"))
+			return
+		}
+
+		description := GetInput(ui.FormatPrompt("Enter description (optional): "))
+		privateInput := GetInput(ui.FormatPrompt("Make private? (y/n, default: n): "))
+		private := strings.ToLower(privateInput) == "y" || strings.ToLower(privateInput) == "yes"
+
+		repo, err := client.CreateRepository(name, description, private)
+		if err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+
+		fmt.Println(ui.FormatSuccess("Repository created successfully!"))
+		fmt.Printf("Repository: %s/%s\n", repo.Owner, repo.Name)
+		fmt.Printf("URL: %s\n", repo.URL)
+
+	case "3":
+		owner := GetInput(ui.FormatPrompt("Enter owner/organization: "))
+		repoName := GetInput(ui.FormatPrompt("Enter repository name: "))
+
+		if owner == "" || repoName == "" {
+			fmt.Println(ui.FormatError("Owner and repository name are required"))
+			return
+		}
+
+		forkedRepo, err := client.ForkRepository(owner, repoName)
+		if err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+
+		fmt.Println(ui.FormatSuccess("Repository forked successfully!"))
+		fmt.Printf("Forked: %s/%s\n", forkedRepo.Owner, forkedRepo.Name)
+		fmt.Printf("URL: %s\n", forkedRepo.URL)
+
+	case "4":
+		query := GetInput(ui.FormatPrompt("Enter search query: "))
+		if query == "" {
+			fmt.Println(ui.FormatError("Search query is required"))
+			return
+		}
+
+		limit := 10
+		repos, err := client.SearchRepositories(query, limit)
+		if err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+
+		fmt.Printf("Found %d repositories:\n", len(repos))
+		for _, repo := range repos {
+			fmt.Printf("  %s/%s (%s) - %d stars\n",
+				repo.Owner, repo.Name, repo.Language, repo.Stars)
+			fmt.Printf("    %s\n", repo.Description)
+		}
+
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+// Remote Management Handlers
+
+func handleAddRemote() {
+	name := GetInput(ui.FormatPrompt("Enter remote name: "))
+	if name == "" {
+		fmt.Println(ui.FormatError("Remote name is required"))
+		return
+	}
+
+	url := GetInput(ui.FormatPrompt("Enter remote URL: "))
+	if url == "" {
+		fmt.Println(ui.FormatError("Remote URL is required"))
+		return
+	}
+
+	if err := git.AddRemote(name, url); err != nil {
+		fmt.Printf("❌ Error adding remote: %v\n", err)
+		return
+	}
+	fmt.Printf("✅ Remote '%s' added successfully!\n", name)
+}
+
+func handleRemoveRemote() {
+	remotes, err := git.ListRemotes()
+	if err != nil {
+		fmt.Printf("❌ Error listing remotes: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Current remotes:\n%s\n", remotes)
+	name := GetInput(ui.FormatPrompt("Enter remote name to remove: "))
+	if name == "" {
+		fmt.Println(ui.FormatError("Remote name is required"))
+		return
+	}
+
+	if err := git.RemoveRemote(name); err != nil {
+		fmt.Printf("❌ Error removing remote: %v\n", err)
+		return
+	}
+	fmt.Printf("✅ Remote '%s' removed successfully!\n", name)
+}
+
+func handleRenameRemote() {
+	remotes, err := git.ListRemotes()
+	if err != nil {
+		fmt.Printf("❌ Error listing remotes: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Current remotes:\n%s\n", remotes)
+	oldName := GetInput(ui.FormatPrompt("Enter current remote name: "))
+	newName := GetInput(ui.FormatPrompt("Enter new remote name: "))
+
+	if oldName == "" || newName == "" {
+		fmt.Println(ui.FormatError("Both old and new names are required"))
+		return
+	}
+
+	if err := git.RenameRemote(oldName, newName); err != nil {
+		fmt.Printf("❌ Error renaming remote: %v\n", err)
+		return
+	}
+	fmt.Printf("✅ Remote renamed from '%s' to '%s'!\n", oldName, newName)
+}
+
+func handleListRemotes() {
+	remotes, err := git.ListRemotes()
+	if err != nil {
+		fmt.Printf("❌ Error listing remotes: %v\n", err)
+		return
+	}
+
+	if remotes == "" {
+		fmt.Println("📭 No remotes configured")
+		return
+	}
+
+	fmt.Printf("🔗 Configured remotes:\n%s\n", remotes)
+}
+
+func handleSetRemoteURL() {
+	remotes, err := git.ListRemotes()
+	if err != nil {
+		fmt.Printf("❌ Error listing remotes: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Current remotes:\n%s\n", remotes)
+	name := GetInput(ui.FormatPrompt("Enter remote name: "))
+	url := GetInput(ui.FormatPrompt("Enter new URL: "))
+
+	if name == "" || url == "" {
+		fmt.Println(ui.FormatError("Both remote name and URL are required"))
+		return
+	}
+
+	if err := git.SetRemoteURL(name, url); err != nil {
+		fmt.Printf("❌ Error setting remote URL: %v\n", err)
+		return
+	}
+	fmt.Printf("✅ URL for remote '%s' updated successfully!\n", name)
+}
+
+func handleSyncAllRemotes() {
+	fmt.Println(ui.FormatInfo("Syncing with all remotes..."))
+	if err := git.SyncWithAllRemotes(); err != nil {
+		fmt.Printf("❌ Error syncing remotes: %v\n", err)
+		return
+	}
+	fmt.Println("✅ All remotes synced successfully!")
+}
+
+// Advanced History & Analysis Handlers
+
+func handleInteractiveLogViewer() {
+	logs, err := git.InteractiveLog()
+	if err != nil {
+		fmt.Printf("❌ Error getting log: %v\n", err)
+		return
+	}
+
+	fmt.Printf("📊 Interactive Git Log:\n%s\n", logs)
+}
+
+func handleFileHistory() {
+	file := GetInput(ui.FormatPrompt("Enter file path: "))
+	if file == "" {
+		fmt.Println(ui.FormatError("File path is required"))
+		return
+	}
+
+	history, err := git.FileHistory(file)
+	if err != nil {
+		fmt.Printf("❌ Error getting file history: %v\n", err)
+		return
+	}
+
+	fmt.Printf("📜 History for %s:\n%s\n", file, history)
+}
+
+func handleBlameFile() {
+	file := GetInput(ui.FormatPrompt("Enter file path: "))
+	if file == "" {
+		fmt.Println(ui.FormatError("File path is required"))
+		return
+	}
+
+	blame, err := git.BlameFile(file)
+	if err != nil {
+		fmt.Printf("❌ Error getting blame: %v\n", err)
+		return
+	}
+
+	fmt.Printf("🔍 Blame for %s:\n%s\n", file, blame)
+}
+
+func handleShowCommitDetails() {
+	commit := GetInput(ui.FormatPrompt("Enter commit hash: "))
+	if commit == "" {
+		fmt.Println(ui.FormatError("Commit hash is required"))
+		return
+	}
+
+	details, err := git.ShowCommitDetails(commit)
+	if err != nil {
+		fmt.Printf("❌ Error getting commit details: %v\n", err)
+		return
+	}
+
+	fmt.Printf("📋 Commit Details:\n%s\n", details)
+}
+
+func handleCompareBranches() {
+	branch1 := GetInput(ui.FormatPrompt("Enter first branch: "))
+	branch2 := GetInput(ui.FormatPrompt("Enter second branch: "))
+
+	if branch1 == "" || branch2 == "" {
+		fmt.Println(ui.FormatError("Both branch names are required"))
+		return
+	}
+
+	comparison, err := git.CompareBranches(branch1, branch2)
+	if err != nil {
+		fmt.Printf("❌ Error comparing branches: %v\n", err)
+		return
+	}
+
+	fmt.Printf("📊 Branch Comparison (%s vs %s):\n%s\n", branch1, branch2, comparison)
+
+	// Also show numerical comparison
+	numComparison, _ := git.BranchComparison(branch1, branch2)
+	fmt.Printf("\n%s\n", numComparison)
+}
+
+func handleFindCommitsByAuthor() {
+	author := GetInput(ui.FormatPrompt("Enter author name/email: "))
+	if author == "" {
+		fmt.Println(ui.FormatError("Author name is required"))
+		return
+	}
+
+	commits, err := git.FindCommitsByAuthor(author)
+	if err != nil {
+		fmt.Printf("❌ Error finding commits: %v\n", err)
+		return
+	}
+
+	fmt.Printf("👤 Commits by %s:\n%s\n", author, commits)
+}
+
+func handleFindCommitsByMessage() {
+	message := GetInput(ui.FormatPrompt("Enter search term: "))
+	if message == "" {
+		fmt.Println(ui.FormatError("Search term is required"))
+		return
+	}
+
+	commits, err := git.FindCommitsByMessage(message)
+	if err != nil {
+		fmt.Printf("❌ Error finding commits: %v\n", err)
+		return
+	}
+
+	fmt.Printf("🔍 Commits containing '%s':\n%s\n", message, commits)
+}
+
+// Patch & Bundle Operations Handlers
+
+func handleCreatePatch() {
+	outputFile := GetInput(ui.FormatPrompt("Enter output file name (e.g., changes.patch): "))
+	if outputFile == "" {
+		outputFile = "changes.patch"
+	}
+
+	if err := git.CreatePatch(outputFile); err != nil {
+		fmt.Printf("❌ Error creating patch: %v\n", err)
+		return
+	}
+
+	fmt.Printf("✅ Patch created: %s\n", outputFile)
+}
+
+func handleApplyPatch() {
+	patchFile := GetInput(ui.FormatPrompt("Enter patch file path: "))
+	if patchFile == "" {
+		fmt.Println(ui.FormatError("Patch file path is required"))
+		return
+	}
+
+	if err := git.ApplyPatch(patchFile); err != nil {
+		fmt.Printf("❌ Error applying patch: %v\n", err)
+		return
+	}
+
+	fmt.Printf("✅ Patch applied: %s\n", patchFile)
+}
+
+func handleCreateBundle() {
+	bundleFile := GetInput(ui.FormatPrompt("Enter bundle file name: "))
+	refSpec := GetInput(ui.FormatPrompt("Enter ref specification (e.g., HEAD, main, --all): "))
+
+	if bundleFile == "" || refSpec == "" {
+		fmt.Println(ui.FormatError("Both bundle file and ref specification are required"))
+		return
+	}
+
+	if err := git.CreateBundle(bundleFile, refSpec); err != nil {
+		fmt.Printf("❌ Error creating bundle: %v\n", err)
+		return
+	}
+
+	fmt.Printf("✅ Bundle created: %s\n", bundleFile)
+}
+
+func handleVerifyBundle() {
+	bundleFile := GetInput(ui.FormatPrompt("Enter bundle file path: "))
+	if bundleFile == "" {
+		fmt.Println(ui.FormatError("Bundle file path is required"))
+		return
+	}
+
+	verification, err := git.VerifyBundle(bundleFile)
+	if err != nil {
+		fmt.Printf("❌ Error verifying bundle: %v\n", err)
+		return
+	}
+
+	fmt.Printf("🔍 Bundle verification:\n%s\n", verification)
+
+	refs, err := git.ListBundleRefs(bundleFile)
+	if err == nil {
+		fmt.Printf("📋 Bundle refs:\n%s\n", refs)
+	}
+}
+
+func handleFormatPatchEmail() {
+	since := GetInput(ui.FormatPrompt("Enter since reference (e.g., origin/main, HEAD~3): "))
+	if since == "" {
+		fmt.Println(ui.FormatError("Since reference is required"))
+		return
+	}
+
+	patches, err := git.FormatPatchForEmail(since)
+	if err != nil {
+		fmt.Printf("❌ Error formatting patches: %v\n", err)
+		return
+	}
+
+	fmt.Printf("📧 Email patches created:\n%s\n", patches)
+}
+
+// Worktree Management Handlers
+
+func handleListWorktrees() {
+	worktrees, err := git.ListWorktrees()
+	if err != nil {
+		fmt.Printf("❌ Error listing worktrees: %v\n", err)
+		return
+	}
+
+	fmt.Printf("🌳 Worktrees:\n%s\n", worktrees)
+}
+
+func handleAddWorktree() {
+	path := GetInput(ui.FormatPrompt("Enter worktree path: "))
+	if path == "" {
+		fmt.Println(ui.FormatError("Worktree path is required"))
+		return
+	}
+
+	branch := GetInput(ui.FormatPrompt("Enter branch (optional, leave empty for new branch): "))
+
+	if err := git.AddWorktree(path, branch); err != nil {
+		fmt.Printf("❌ Error adding worktree: %v\n", err)
+		return
+	}
+
+	fmt.Printf("✅ Worktree added: %s\n", path)
+}
+
+func handleRemoveWorktree() {
+	worktrees, _ := git.ListWorktrees()
+	fmt.Printf("Current worktrees:\n%s\n", worktrees)
+
+	path := GetInput(ui.FormatPrompt("Enter worktree path to remove: "))
+	if path == "" {
+		fmt.Println(ui.FormatError("Worktree path is required"))
+		return
+	}
+
+	if err := git.RemoveWorktree(path); err != nil {
+		fmt.Printf("❌ Error removing worktree: %v\n", err)
+		return
+	}
+
+	fmt.Printf("✅ Worktree removed: %s\n", path)
+}
+
+func handleMoveWorktree() {
+	worktrees, _ := git.ListWorktrees()
+	fmt.Printf("Current worktrees:\n%s\n", worktrees)
+
+	oldPath := GetInput(ui.FormatPrompt("Enter current worktree path: "))
+	newPath := GetInput(ui.FormatPrompt("Enter new worktree path: "))
+
+	if oldPath == "" || newPath == "" {
+		fmt.Println(ui.FormatError("Both old and new paths are required"))
+		return
+	}
+
+	if err := git.MoveWorktree(oldPath, newPath); err != nil {
+		fmt.Printf("❌ Error moving worktree: %v\n", err)
+		return
+	}
+
+	fmt.Printf("✅ Worktree moved from %s to %s\n", oldPath, newPath)
+}
+
+// Repository Maintenance Handlers
+
+func handleGarbageCollection() {
+	fmt.Println(ui.FormatInfo("Running garbage collection (this may take a while)..."))
+	if err := git.GarbageCollect(); err != nil {
+		fmt.Printf("❌ Error running garbage collection: %v\n", err)
+		return
+	}
+	fmt.Println("✅ Garbage collection completed!")
+}
+
+func handleVerifyRepository() {
+	fmt.Println(ui.FormatInfo("Verifying repository integrity..."))
+	result, err := git.VerifyRepository()
+	if err != nil {
+		fmt.Printf("❌ Error verifying repository: %v\n", err)
+		return
+	}
+
+	if result == "" {
+		fmt.Println("✅ Repository integrity verified - no issues found!")
+	} else {
+		fmt.Printf("🔍 Repository verification results:\n%s\n", result)
+	}
+}
+
+func handleOptimizeRepository() {
+	fmt.Println(ui.FormatInfo("Optimizing repository (this may take several minutes)..."))
+	if err := git.OptimizeRepository(); err != nil {
+		fmt.Printf("❌ Error optimizing repository: %v\n", err)
+		return
+	}
+	fmt.Println("✅ Repository optimized successfully!")
+}
+
+func handleRepositoryStatistics() {
+	fmt.Println(ui.FormatInfo("Gathering repository statistics..."))
+	stats, err := git.RepositoryStatistics()
+	if err != nil {
+		fmt.Printf("❌ Error getting statistics: %v\n", err)
+		return
+	}
+
+	fmt.Printf("📊 %s\n", stats)
+}
+
+func handleReflogManagement() {
+	fmt.Println(ui.FormatInfo("Reflog Management"))
+	fmt.Println("1. Show reflog")
+	fmt.Println("2. Show reflog for specific ref")
+	fmt.Println("3. Expire reflog entries")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-3): "))
+
+	switch choice {
+	case "1":
+		reflog, err := git.Reflog()
+		if err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Printf("📋 Reflog:\n%s\n", reflog)
+
+	case "2":
+		ref := GetInput(ui.FormatPrompt("Enter ref (e.g., HEAD, main): "))
+		reflog, err := git.ReflogShow(ref)
+		if err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Printf("📋 Reflog for %s:\n%s\n", ref, reflog)
+
+	case "3":
+		confirm := GetInput(ui.FormatPrompt("⚠️  This will expire old reflog entries. Continue? (yes/no): "))
+		if strings.ToLower(confirm) != "yes" {
+			fmt.Println("Cancelled")
+			return
+		}
+		if err := git.ReflogExpire(); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println("✅ Reflog entries expired!")
+
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handlePruneRemoteBranches() {
+	remote := GetInput(ui.FormatPrompt("Enter remote name (default: origin): "))
+
+	if err := git.PruneRemoteBranches(remote); err != nil {
+		fmt.Printf("❌ Error pruning remote branches: %v\n", err)
+		return
+	}
+
+	remoteName := remote
+	if remoteName == "" {
+		remoteName = "origin"
+	}
+	fmt.Printf("✅ Pruned stale branches from '%s'!\n", remoteName)
+}
+
+// Smart Git Operations Handlers
+
+func handleInteractiveAdd() {
+	fmt.Println(ui.FormatInfo("Starting interactive add (patch mode)..."))
+	if err := git.InteractiveAdd(); err != nil {
+		fmt.Printf("❌ Error: %v\n", err)
+		return
+	}
+	fmt.Println("✅ Interactive add completed!")
+}
+
+func handlePartialCommit() {
+	message := GetInput(ui.FormatPrompt("Enter commit message: "))
+	if message == "" {
+		fmt.Println(ui.FormatError("Commit message is required"))
+		return
+	}
+
+	fmt.Println(ui.FormatInfo("Starting partial commit with interactive add..."))
+	if err := git.PartialCommit(message); err != nil {
+		fmt.Printf("❌ Error: %v\n", err)
+		return
+	}
+	fmt.Println("✅ Partial commit completed!")
+}
+
+func handleCommitAmend() {
+	fmt.Println(ui.FormatInfo("Amend Last Commit"))
+	fmt.Println("1. Amend without changing message")
+	fmt.Println("2. Amend with new message")
+
+	choice := GetInput(ui.FormatPrompt("Choose option (1-2): "))
+
+	switch choice {
+	case "1":
+		if err := git.AmendLastCommit(""); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println("✅ Last commit amended!")
+
+	case "2":
+		message := GetInput(ui.FormatPrompt("Enter new commit message: "))
+		if message == "" {
+			fmt.Println(ui.FormatError("Commit message is required"))
+			return
+		}
+		if err := git.AmendLastCommit(message); err != nil {
+			fmt.Printf("❌ Error: %v\n", err)
+			return
+		}
+		fmt.Println("✅ Last commit amended with new message!")
+
+	default:
+		fmt.Println(ui.FormatError("Invalid choice"))
+	}
+}
+
+func handleBranchComparisonTool() {
+	branch1 := GetInput(ui.FormatPrompt("Enter first branch: "))
+	branch2 := GetInput(ui.FormatPrompt("Enter second branch: "))
+
+	if branch1 == "" || branch2 == "" {
+		fmt.Println(ui.FormatError("Both branch names are required"))
+		return
+	}
+
+	comparison, err := git.BranchComparison(branch1, branch2)
+	if err != nil {
+		fmt.Printf("❌ Error: %v\n", err)
+		return
+	}
+
+	fmt.Printf("🔄 %s\n", comparison)
+}
+
+func handleConflictPreventionCheck() {
+	branch := GetInput(ui.FormatPrompt("Enter branch to check merge conflicts with: "))
+	if branch == "" {
+		fmt.Println(ui.FormatError("Branch name is required"))
+		return
+	}
+
+	result, err := git.ConflictPreventionCheck(branch)
+	if err != nil {
+		fmt.Printf("❌ Error: %v\n", err)
+		return
+	}
+
+	fmt.Printf("%s\n", result)
 }

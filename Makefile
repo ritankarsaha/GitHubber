@@ -1,3 +1,4 @@
+
 # GitHubber - Makefile
 # Author: Ritankar Saha <ritankar.saha786@gmail.com>
 
@@ -51,10 +52,35 @@ test:
 # Run tests with coverage
 test-coverage:
 	@echo "🧪 Running tests with coverage..."
-	@go test -v -cover ./...
-	@go test -coverprofile=coverage.out ./...
-	@go tool cover -html=coverage.out -o coverage.html
-	@echo "📊 Coverage report generated: coverage.html"
+	@./test_coverage.sh
+
+# Run tests with detailed coverage report
+test-coverage-detailed:
+	@echo "🧪 Running detailed test coverage..."
+	@mkdir -p coverage
+	@go test -v -coverprofile=coverage/full.out ./...
+	@go tool cover -html=coverage/full.out -o coverage/full.html
+	@go tool cover -func=coverage/full.out
+	@echo "📊 Detailed coverage report: coverage/full.html"
+
+# Run tests for specific package
+test-package:
+	@echo "🧪 Running tests for specific package..."
+	@if [ -z "$(PKG)" ]; then echo "Usage: make test-package PKG=internal/ui"; exit 1; fi
+	@go test -v -cover ./$(PKG)/
+
+# Run benchmark tests
+test-bench:
+	@echo "🏃 Running benchmark tests..."
+	@go test -bench=. ./...
+
+# Generate test coverage badge
+test-badge:
+	@echo "🏷️  Generating coverage badge..."
+	@mkdir -p coverage
+	@go test -coverprofile=coverage/badge.out ./... > /dev/null 2>&1
+	@COVERAGE=$$(go tool cover -func=coverage/badge.out | tail -1 | awk '{print $$3}' | sed 's/%//'); \
+	echo "Coverage: $$COVERAGE%"
 
 # Lint the code
 lint:
@@ -117,6 +143,10 @@ help:
 	@echo "  dev          Run in development mode with hot reload"
 	@echo "  test         Run tests"
 	@echo "  test-coverage Run tests with coverage report"
+	@echo "  test-coverage-detailed Run detailed coverage analysis" 
+	@echo "  test-package Run tests for specific package (PKG=internal/ui)"
+	@echo "  test-bench   Run benchmark tests"
+	@echo "  test-badge   Generate coverage badge"
 	@echo "  lint         Lint the code"
 	@echo "  fmt          Format the code"
 	@echo "  clean        Clean build artifacts"

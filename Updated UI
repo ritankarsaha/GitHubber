@@ -1,0 +1,141 @@
+
+To implement User Preferences for a Customizable UI Theme, you'll need features that let users select and save UI styles such as light/dark mode, color palette, font size, etc.
+
+Here’s a breakdown of what you should implement:
+
+✅ Expected Features
+Theme Options
+
+Light Mode 🌞
+
+Dark Mode 🌙
+
+Custom Color Schemes 🎨<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Toggle Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .transition-colors {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-900 transition-colors duration-300 gap-4 p-4">
+        <div class="flex flex-col items-center gap-4 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h1 class="text-xl font-bold text-gray-800 dark:text-white">Theme Customizer</h1>
+            
+            <div class="flex gap-2">
+                <button data-theme="light" class="theme-option p-2 rounded bg-gray-200 text-black">
+                    Light
+                </button>
+                <button data-theme="dark" class="theme-option p-2 rounded bg-gray-800 text-white">
+                    Dark
+                </button>
+                <button data-theme="blue" class="theme-option p-2 rounded bg-blue-200 text-blue-800">
+                    Blue
+                </button>
+                <button data-theme="green" class="theme-option p-2 rounded bg-green-200 text-green-800">
+                    Green
+                </button>
+            </div>
+            
+            <div id="currentTheme" class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                Current theme: Loading...
+            </div>
+            
+            <div class="theme-preview mt-4 p-4 rounded-lg panel-bg transition-colors duration-300">
+                <h3 class="font-medium mb-2">Preview:</h3>
+                <div class="flex gap-2">
+                    <div class="w-8 h-8 rounded-full bg-red-500"></div>
+                    <div class="w-8 h-8 rounded-full bg-blue-500"></div>
+                    <div class="w-8 h-8 rounded-full bg-green-500"></div>
+                </div>
+                <p class="mt-2 text-sm">Sample text in this theme style</p>
+            </div>
+            
+            <button id="resetTheme" class="mt-4 px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 accent-border border-2 transition-colors duration-300">
+                Reset to System Default
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Theme configuration
+        // Accent colors for each theme
+        const accentColors = {
+            light: 'border-purple-500',
+            dark: 'border-teal-400',
+            blue: 'border-sky-400',
+            green: 'border-emerald-400'
+        };
+
+        const themes = {
+            light: { bg: 'bg-white', text: 'text-gray-800', panel: 'bg-gray-100' },
+            dark: { bg: 'bg-gray-900', text: 'text-white', panel: 'bg-gray-800' },
+            blue: { bg: 'bg-blue-50', text: 'text-blue-900', panel: 'bg-blue-100' },
+            green: { bg: 'bg-green-50', text: 'text-green-900', panel: 'bg-green-100' }
+        };
+
+        // Initialize theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        }
+
+        // Set theme and update UI
+        function setTheme(themeName) {
+            const theme = themes[themeName];
+            const html = document.documentElement;
+            
+            // Clear all theme classes first
+            Object.values(themes).forEach(theme => {
+                html.classList.remove(theme.bg, theme.text);
+                document.querySelectorAll('div[id^="theme"]').forEach(el => {
+                    el.classList.remove(theme.panel);
+                });
+            });
+            
+            // Add new theme classes
+            html.className = themeName;
+            html.classList.add(theme.bg, theme.text);
+            document.querySelectorAll('.panel-bg').forEach(el => {
+                el.classList.add(theme.panel);
+            });
+            
+            // Update accent borders
+            document.querySelectorAll('.accent-border').forEach(el => {
+                Object.values(accentColors).forEach(color => {
+                    el.classList.remove(color);
+                });
+                el.classList.add(accentColors[themeName]);
+            });
+            
+            localStorage.setItem('theme', themeName);
+            document.getElementById('currentTheme').textContent = `Current theme: ${themeName.charAt(0).toUpperCase() + themeName.slice(1)}`;
+        }
+
+        // Handle theme selection
+        document.querySelectorAll('.theme-option').forEach(button => {
+            button.addEventListener('click', () => {
+                setTheme(button.dataset.theme);
+            });
+        });
+
+        // Reset to system default
+        document.getElementById('resetTheme').addEventListener('click', () => {
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            setTheme(systemTheme);
+            localStorage.removeItem('theme');
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadTheme);
+    </script>
+</body>
+</html>
